@@ -1,0 +1,52 @@
+#include <iostream>
+
+void Copy(const int* src_begin, const int* src_end, int* dest) {
+  while (src_begin != src_end) {
+    *dest = *src_begin;
+    src_begin++;
+    dest++;
+  }
+}
+
+void Merge(const int* first_begin, const int* first_end, const int* second_begin, const int* second_end, int* result) {
+  while (first_begin != first_end && second_end != second_begin) {
+    if (*first_begin <= *second_begin) {
+      *result = *first_begin;
+      first_begin++;
+    } else {
+      *result = *second_begin;
+      second_begin++;
+    }
+    result++;
+  }
+  Copy(first_begin, first_end, result);
+  Copy(second_begin, second_end, result);
+}
+
+void MergeSort(int* begin, int* end, int* result) {
+  size_t size = end - begin;
+  if (size < 2) {
+    return;
+  }
+  MergeSort(begin, begin + size / 2, result);
+  MergeSort(begin + size / 2, end, result);
+  Merge(begin, begin + size / 2, begin + size / 2, end, result);
+  Copy(result, result + size, begin);
+}
+
+int main() {
+  int len = 0;
+  std::cin >> len;
+  int* arr = new int[len];
+  for (int i = 0; i < len; i++) {
+    std::cin >> arr[i];
+  }
+  int* buffer = new int[len]();
+  MergeSort(arr, arr + len, buffer);
+  for (int i = 0; i < len; i++) {
+    std::cout << arr[i] << " ";
+  }
+  delete[] arr;
+  delete[] buffer;
+  return 0;
+}
