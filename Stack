@@ -36,6 +36,15 @@ struct Stack {
       Pop();
     }
   }
+  int Size() {
+    int count = 0;
+    Node* runner = head;
+    while (runner != nullptr) {
+      count++;
+      runner = runner->next;
+    }
+    return count;
+  }
 };
 
 int main() {
