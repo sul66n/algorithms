@@ -1,4 +1,4 @@
-#include <iostream>  //Heap
+#include <iostream>
 
 int64_t LeftChild(int64_t i) {
   return 2 * i + 1;
